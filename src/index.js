@@ -38,9 +38,43 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    let count = '';
+    let outCount = '';
+    label:for(let i = 1; i<=expr.length; i++){
+       count += expr[i-1];
+       if(i%10 === 0 && i!==0){
+         if(count !== '**********'){
+           outCount+= MORSE_TABLE[getWorldOrNumber(count)];
+         }else{
+           outCount+=' ';
+         }
+         count = '';
+         continue label;
+       }
+    }
+    return outCount;
 }
-
+let getWorldOrNumber = (str) =>{
+    let outCount = '';
+    let count = '';
+    label:for(let i = 1; i<=str.length; i++){
+      count += str[i-1];
+      if(i%2 === 0 && i!==0){
+        if(count==='00'){
+          outCount += '';
+        }
+        if(count ==='10'){
+          outCount+='.'
+        }
+        if(count ==='11'){
+          outCount+='-'
+        }
+        count = ''
+        continue label;
+      }
+   }
+   return outCount;
+  }
 module.exports = {
     decode
 }
